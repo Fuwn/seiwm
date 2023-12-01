@@ -17,7 +17,7 @@ static const unsigned int systrayspacing = 0; /* systray spacing */
 static const int systraypinningfailfirst =
     1; /* 1: if pinning fails, display systray on the first monitor, False:
           display systray on the last monitor*/
-static const int showsystray = 0; /* 0 means no systray */
+static const int showsystray = 1; /* 0 means no systray */
 static const unsigned int cornerrad = 4;
 static unsigned int gappih = 20; /* horiz inner gap between windows */
 static unsigned int gappiv = 10; /* vert inner gap between windows */
@@ -570,6 +570,4 @@ static const Button buttons[] = {
     {ClkTagBar, 0, Button4, shiftview, {.i = -1}},
     {ClkTagBar, 0, Button5, shiftview, {.i = 1}},
     {ClkRootWin, 0, Button2, togglebar, {0}},
-    {ClkTagBar, MODKEY, Button1, tag, {0}},
-    {ClkTagBar, MODKEY, Button3, toggletag, {0}},
 };
