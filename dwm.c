@@ -28,6 +28,7 @@
 #include <X11/cursorfont.h>
 #include <X11/keysym.h>
 #include <errno.h>
+#include <fribidi.h>
 #include <locale.h>
 #include <signal.h>
 #include <stdarg.h>
@@ -245,6 +246,7 @@ typedef struct {
 } ResourcePref;
 
 /* function declarations */
+static void apply_fribidi(char *str);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h,
                           int interact);
@@ -376,6 +378,7 @@ static pid_t winpid(Window w);
 static Systray *systray = NULL;
 static const char broken[] = "broken";
 static char stext[256];
+static char fribidi_text[256];
 static char rawstext[256];
 static int dwmblockssig;
 pid_t dwmblockspid = 0;
@@ -993,6 +996,19 @@ Monitor *dirtomon(int dir) {
   return m;
 }
 
+void apply_fribidi(char *str) {
+  FriBidiStrIndex len = strlen(str);
+  FriBidiChar logical[256];
+  FriBidiChar visual[256];
+  FriBidiParType base = FRIBIDI_PAR_ON;
+  FriBidiCharSet charset;
+
+  charset = fribidi_parse_charset("UTF-8");
+  len = fribidi_charset_to_unicode(charset, str, len, logical);
+  fribidi_log2vis(logical, len, &base, visual, NULL, NULL, NULL);
+  fribidi_unicode_to_charset(charset, visual, len, fribidi_text);
+}
+
 void drawbar(Monitor *m) {
   int x, w, tw = 0, stw = 0;
   int boxs = drw->fonts->h / 9;
@@ -1038,7 +1054,8 @@ void drawbar(Monitor *m) {
   if ((w = m->ww - tw - stw - x) > bh) {
     if (m->sel) {
       drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
-      drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+      apply_fribidi(m->sel->name);
+      drw_text(drw, x, 0, w, bh, lrpad / 2, fribidi_text, 0);
       if (m->sel->isfloating)
         drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
     } else {
