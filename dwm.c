@@ -648,30 +648,28 @@ void buttonpress(XEvent *e) {
       arg.ui = 1 << i;
     } else if (ev->x < x + TEXTW(selmon->ltsymbol))
       click = ClkLtSymbol;
-    else if (ev->x > selmon->ww - (int)TEXTW(stext) - getsystraywidth()) {
+    else if (ev->x > (x = selmon->ww - (int)TEXTW(stext) + lrpad)) {
       click = ClkStatusText;
-    }
-    // else if (ev->x > (x = selmon->ww - (int)TEXTW(stext) + lrpad)) {
-    else
-      click = ClkWinTitle;
 
-    char *text = rawstext;
-    int i = -1;
-    char ch;
-    dwmblockssig = 0;
-    while (text[++i]) {
-      if ((unsigned char)text[i] < ' ') {
-        ch = text[i];
-        text[i] = '\0';
-        x += TEXTW(text) - lrpad;
-        text[i] = ch;
-        text += i + 1;
-        i = -1;
-        if (x >= ev->x)
-          break;
-        dwmblockssig = ch;
+      char *text = rawstext;
+      int i = -1;
+      char ch;
+      dwmblockssig = 0;
+      while (text[++i]) {
+        if ((unsigned char)text[i] < ' ') {
+          ch = text[i];
+          text[i] = '\0';
+          x += TEXTW(text) - lrpad;
+          text[i] = ch;
+          text += i + 1;
+          i = -1;
+          if (x >= ev->x)
+            break;
+          dwmblockssig = ch;
+        }
       }
-    }
+    } else
+      click = ClkWinTitle;
   } else if ((c = wintoclient(ev->window))) {
     focus(c);
     restack(selmon);
