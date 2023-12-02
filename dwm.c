@@ -1689,7 +1689,8 @@ void resizeclient(Client *c, int x, int y, int w, int h) {
   XConfigureWindow(dpy, c->win, CWX | CWY | CWWidth | CWHeight | CWBorderWidth,
                    &wc);
   configure(c);
-  // roundcorners(c);
+  if (enableroundcorners)
+    roundcorners(c);
   XSync(dpy, False);
 }
 
@@ -1757,8 +1758,9 @@ void restack(Monitor *m) {
   XEvent ev;
   XWindowChanges wc;
 
-  // for (c = m->stack; c; c = c->snext)
-  // roundcorners(c);
+  if (enableroundcorners)
+    for (c = m->stack; c; c = c->snext)
+      roundcorners(c);
 
   drawbar(m);
   if (!m->sel)
