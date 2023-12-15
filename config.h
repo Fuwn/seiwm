@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "kitty"
-#define TERMINAL2 "st"
+#define TERMINAL "st"
+#define TERMINAL2 "kitty"
 #define TERMCLASS "St"
 #define BROWSER "firefox"
 
@@ -20,8 +20,8 @@ static const int systraypinningfailfirst =
     1; /* 1: if pinning fails, display systray on the first monitor, False:
           display systray on the last monitor*/
 static const int showsystray = 1; /* 0 means no systray */
-static const unsigned int enableroundcorners = 0;
-static const unsigned int cornerrad = 4;
+static const unsigned int roundedcorners = 0;
+static const unsigned int cornerradius = 10;
 static unsigned int gappih = 20; /* horiz inner gap between windows */
 static unsigned int gappiv = 10; /* vert inner gap between windows */
 static unsigned int gappoh =
@@ -55,9 +55,9 @@ typedef struct {
   const char *name;
   const void *cmd;
 } Sp;
-const char *spcmd1[] = {TERMINAL2, "-n", "spterm", "-g", "120x34", NULL};
-const char *spcmd2[] = {TERMINAL2, "-n",    "spcalc", "-f", "monospace:size=16",
-                        "-g",      "50x20", "-e",     "bc", "-lq",
+const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL};
+const char *spcmd2[] = {TERMINAL, "-n",    "spcalc", "-f", "monospace:size=16",
+                        "-g",     "50x20", "-e",     "bc", "-lq",
                         NULL};
 static Sp scratchpads[] = {
     /* name          cmd  */
@@ -137,7 +137,7 @@ static const Layout layouts[] = {
   }
 
 /* commands */
-static const char *termcmd[] = {TERMINAL, NULL};
+static const char *termcmd[] = {TERMINAL2, NULL};
 
 /*
  * Xresources preferences to load at startup

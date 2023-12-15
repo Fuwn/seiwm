@@ -251,6 +251,7 @@ static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h,
                           int interact);
 static void arrange(Monitor *m);
+static void drawroundedcorners(Client *c);
 static void arrangemon(Monitor *m);
 static void attach(Client *c);
 static void attachstack(Client *c);
@@ -553,6 +554,12 @@ void arrangemon(Monitor *m) {
   strncpy(m->ltsymbol, m->lt[m->sellt]->symbol, sizeof m->ltsymbol);
   if (m->lt[m->sellt]->arrange)
     m->lt[m->sellt]->arrange(m);
+
+  if (roundedcorners) {
+    Client *c;
+    for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+      drawroundedcorners(c);
+  }
 }
 
 void attach(Client *c) {
@@ -1692,8 +1699,6 @@ void resizeclient(Client *c, int x, int y, int w, int h) {
   XConfigureWindow(dpy, c->win, CWX | CWY | CWWidth | CWHeight | CWBorderWidth,
                    &wc);
   configure(c);
-  if (enableroundcorners)
-    roundcorners(c);
   XSync(dpy, False);
 }
 
@@ -1760,10 +1765,6 @@ void restack(Monitor *m) {
   Client *c;
   XEvent ev;
   XWindowChanges wc;
-
-  if (enableroundcorners)
-    for (c = m->stack; c; c = c->snext)
-      roundcorners(c);
 
   drawbar(m);
   if (!m->sel)
@@ -2918,51 +2919,57 @@ Monitor *systraytomon(Monitor *m) {
   return t;
 }
 
-void roundcorners(Client *c) {
-  Window w = c->win;
-  XWindowAttributes wa;
-  XGetWindowAttributes(dpy, w, &wa);
+void drawroundedcorners(Client *c) {
+  if (cornerradius <= 0 || !c || c->isfullscreen) {
+    return;
+  }
 
-  // If this returns null, the window is invalid.
-  if (!XGetWindowAttributes(dpy, w, &wa))
+  // if (borderpx >= 1)
+  //   return;
+
+  if (!roundedcorners)
     return;
 
-  int width = borderpx * 2 + wa.width;
-  int height = borderpx * 2 + wa.height;
-  /* int width = win_attr.border_width * 2 + win_attr.width; */
-  /* int height = win_attr.border_width * 2 + win_attr.height; */
-  int rad = cornerrad * enablegaps * (1 - enablefullscreen) *
-            enableoutergaps; // config_theme_cornerradius;
-  int dia = 2 * rad;
-
-  // do not try to round if the window would be smaller than the corners
-  if (width < dia || height < dia)
+  Window win;
+  win = c->win;
+  if (!win)
     return;
 
-  Pixmap mask = XCreatePixmap(dpy, w, width, height, 1);
-  // if this returns null, the mask is not drawable
+  XWindowAttributes win_attr;
+  if (!XGetWindowAttributes(dpy, win, &win_attr))
+    return;
+
+  int dia = 2 * cornerradius;
+  int w = c->w;
+  int h = c->h;
+  if (w < dia || h < dia)
+    return;
+
+  Pixmap mask;
+  mask = XCreatePixmap(dpy, win, w, h, 1);
   if (!mask)
     return;
 
   XGCValues xgcv;
-  GC shape_gc = XCreateGC(dpy, mask, 0, &xgcv);
+  GC shape_gc;
+  shape_gc = XCreateGC(dpy, mask, 0, &xgcv);
+
   if (!shape_gc) {
     XFreePixmap(dpy, mask);
+    free(shape_gc);
     return;
   }
 
   XSetForeground(dpy, shape_gc, 0);
-  XFillRectangle(dpy, mask, shape_gc, 0, 0, width, height);
+  XFillRectangle(dpy, mask, shape_gc, 0, 0, w, h);
   XSetForeground(dpy, shape_gc, 1);
   XFillArc(dpy, mask, shape_gc, 0, 0, dia, dia, 0, 23040);
-  XFillArc(dpy, mask, shape_gc, width - dia - 1, 0, dia, dia, 0, 23040);
-  XFillArc(dpy, mask, shape_gc, 0, height - dia - 1, dia, dia, 0, 23040);
-  XFillArc(dpy, mask, shape_gc, width - dia - 1, height - dia - 1, dia, dia, 0,
-           23040);
-  XFillRectangle(dpy, mask, shape_gc, rad, 0, width - dia, height);
-  XFillRectangle(dpy, mask, shape_gc, 0, rad, width, height - dia);
-  XShapeCombineMask(dpy, w, ShapeBounding, 0 - wa.border_width,
-                    0 - wa.border_width, mask, ShapeSet);
+  XFillArc(dpy, mask, shape_gc, w - dia - 1, 0, dia, dia, 0, 23040);
+  XFillArc(dpy, mask, shape_gc, 0, h - dia - 1, dia, dia, 0, 23040);
+  XFillArc(dpy, mask, shape_gc, w - dia - 1, h - dia - 1, dia, dia, 0, 23040);
+  XFillRectangle(dpy, mask, shape_gc, cornerradius, 0, w - dia, h);
+  XFillRectangle(dpy, mask, shape_gc, 0, cornerradius, w, h - dia);
+  XShapeCombineMask(dpy, win, ShapeBounding, 0, 0, mask, ShapeSet);
   XFreePixmap(dpy, mask);
   XFreeGC(dpy, shape_gc);
 }
