@@ -807,13 +807,16 @@ void clientmessage(XEvent *e) {
     return;
   if (cme->message_type == netatom[NetWMState]) {
     if (cme->data.l[1] == netatom[NetWMFullscreen] ||
-        cme->data.l[2] == netatom[NetWMFullscreen])
-      setfullscreen(c, (cme->data.l[0] == 1 /* _NET_WM_STATE_ADD    */
-                        || (cme->data.l[0] == 2 /* _NET_WM_STATE_TOGGLE */ &&
-                            !c->isfullscreen)));
-  } else if (cme->message_type == netatom[NetActiveWindow]) {
-    if (c != selmon->sel && !c->isurgent)
-      seturgent(c, 1);
+        cme->data.l[2] == netatom[NetWMFullscreen]) {
+      if (strcmp(c->name, "Apex Legends") != 0) {
+        setfullscreen(c, (cme->data.l[0] == 1 /* _NET_WM_STATE_ADD    */
+                          || (cme->data.l[0] == 2 /* _NET_WM_STATE_TOGGLE */ &&
+                              !c->isfullscreen)));
+      }
+    } else if (cme->message_type == netatom[NetActiveWindow]) {
+      if (c != selmon->sel && !c->isurgent)
+        seturgent(c, 1);
+    }
   }
 }
 
@@ -2036,7 +2039,7 @@ void setup(void) {
   XChangeProperty(dpy, wmcheckwin, netatom[NetWMCheck], XA_WINDOW, 32,
                   PropModeReplace, (unsigned char *)&wmcheckwin, 1);
   XChangeProperty(dpy, wmcheckwin, netatom[NetWMName], utf8string, 8,
-                  PropModeReplace, (unsigned char *)"dwm", 3);
+                  PropModeReplace, (unsigned char *)wmname, 3);
   XChangeProperty(dpy, root, netatom[NetWMCheck], XA_WINDOW, 32,
                   PropModeReplace, (unsigned char *)&wmcheckwin, 1);
   /* EWMH support per view */
@@ -2321,7 +2324,7 @@ void updatebars(void) {
   XSetWindowAttributes wa = {.override_redirect = True,
                              .background_pixmap = ParentRelative,
                              .event_mask = ButtonPressMask | ExposureMask};
-  XClassHint ch = {"dwm", "dwm"};
+  XClassHint ch = {wmname, wmname};
   for (m = mons; m; m = m->next) {
     if (m->barwin)
       continue;
@@ -2734,7 +2737,7 @@ void resource_load(XrmDatabase db, char *name, enum resource_type rtype,
   char *type;
   XrmValue ret;
 
-  snprintf(fullname, sizeof(fullname), "%s.%s", "dwm", name);
+  snprintf(fullname, sizeof(fullname), "%s.%s", wmname, name);
   fullname[sizeof(fullname) - 1] = '\0';
 
   XrmGetResource(db, fullname, "*", &type, &ret);

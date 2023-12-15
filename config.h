@@ -1,11 +1,13 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "st"
+#define TERMINAL "kitty"
+#define TERMINAL2 "st"
 #define TERMCLASS "St"
 #define BROWSER "firefox"
 
 /* appearance */
+static const char *wmname = "sei";
 static unsigned int borderpx = 2; /* border pixel of windows */
 static unsigned int snap = 32;    /* snap pixel */
 static const unsigned int systraypinning =
@@ -53,9 +55,9 @@ typedef struct {
   const char *name;
   const void *cmd;
 } Sp;
-const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL};
-const char *spcmd2[] = {TERMINAL, "-n",    "spcalc", "-f", "monospace:size=16",
-                        "-g",     "50x20", "-e",     "bc", "-lq",
+const char *spcmd1[] = {TERMINAL2, "-n", "spterm", "-g", "120x34", NULL};
+const char *spcmd2[] = {TERMINAL2, "-n",    "spcalc", "-f", "monospace:size=16",
+                        "-g",      "50x20", "-e",     "bc", "-lq",
                         NULL};
 static Sp scratchpads[] = {
     /* name          cmd  */
@@ -360,12 +362,7 @@ static const Key keys[] = {
      XK_period,
      spawn,
      {.v = (const char *[]){"spt", "pb", "--previous", NULL}}}, /* mpc repeat */
-    {MODKEY,
-     XK_c,
-     spawn,
-     {.v = (const char *[]){"rofi", "-modi", "\"clipboard:greenclip print\"",
-                            "-show", "clipboard", "-run-command", "'{cmd}'",
-                            NULL}}},
+    {MODKEY, XK_c, spawn, {.v = (const char *[]){"clipcat-menu", NULL}}},
 
     {MODKEY, XK_Left, focusmon, {.i = -1}},
     {MODKEY | ShiftMask, XK_Left, tagmon, {.i = -1}},
