@@ -2837,12 +2837,12 @@ void updatesystray(void) {
   if (!showsystray)
     return;
   if (systrayonleft)
-    x -= sw + lrpad / 2;
+    x -= sw + 2 / 2 * sp + lrpad / 2;
   if (!systray) {
     /* init systray */
     if (!(systray = (Systray *)calloc(1, sizeof(Systray))))
       die("fatal: could not malloc() %u bytes\n", sizeof(Systray));
-    systray->win = XCreateSimpleWindow(dpy, root, x, m->by, w, bh, 0, 0,
+    systray->win = XCreateSimpleWindow(dpy, root, x, m->by + vp, w, bh, 0, 0,
                                        scheme[SchemeSel][ColBg].pixel);
     wa.event_mask = ButtonPressMask | ExposureMask;
     wa.override_redirect = True;
@@ -2880,9 +2880,9 @@ void updatesystray(void) {
   }
   w = w ? w + systrayspacing : 1;
   x -= w;
-  XMoveResizeWindow(dpy, systray->win, x, m->by, w, bh);
+  XMoveResizeWindow(dpy, systray->win, x, m->by + vp, w, bh);
   wc.x = x;
-  wc.y = m->by;
+  wc.y = m->by + vp;
   wc.width = w;
   wc.height = bh;
   wc.stack_mode = Above;
