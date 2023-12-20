@@ -1,9 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "st"
-#define TERMINAL2 "kitty"
-#define TERMCLASS "St"
+#define TERMINAL "kitty"
+#define TERMINAL2 "st"
+#define TERMCLASS "kitty"
+#define TERMCLASS2 "St"
 #define BROWSER "firefox"
 
 /* appearance */
@@ -55,9 +56,9 @@ typedef struct {
   const char *name;
   const void *cmd;
 } Sp;
-const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL};
-const char *spcmd2[] = {TERMINAL, "-n",    "spcalc", "-f", "monospace:size=16",
-                        "-g",     "50x20", "-e",     "bc", "-lq",
+const char *spcmd1[] = {TERMINAL2, "-n", "spterm", "-g", "120x34", NULL};
+const char *spcmd2[] = {TERMINAL2, "-n",    "spcalc", "-f", "monospace:size=16",
+                        "-g",      "50x20", "-e",     "bc", "-lq",
                         NULL};
 static Sp scratchpads[] = {
     /* name          cmd  */
@@ -79,10 +80,10 @@ static const Rule rules[] = {
     // {"Gimp", NULL, NULL, 1 << 8, 0, 0, 0, -1},
     {TERMCLASS, NULL, NULL, 0, 0, 1, 0, -1},
     {NULL, NULL, "Event Tester", 0, 0, 0, 1, -1},
-    {TERMCLASS, "floatterm", NULL, 0, 1, 1, 0, -1},
-    {TERMCLASS, "bg", NULL, 1 << 7, 0, 1, 0, -1},
-    {TERMCLASS, "spterm", NULL, SPTAG(0), 1, 1, 0, -1},
-    {TERMCLASS, "spcalc", NULL, SPTAG(1), 1, 1, 0, -1},
+    {TERMCLASS2, "floatterm", NULL, 0, 1, 1, 0, -1},
+    {TERMCLASS2, "bg", NULL, 1 << 7, 0, 1, 0, -1},
+    {TERMCLASS2, "spterm", NULL, SPTAG(0), 1, 1, 0, -1},
+    {TERMCLASS2, "spcalc", NULL, SPTAG(1), 1, 1, 0, -1},
 };
 
 /* layout(s) */
@@ -137,7 +138,7 @@ static const Layout layouts[] = {
   }
 
 /* commands */
-static const char *termcmd[] = {TERMINAL2, NULL};
+static const char *termcmd[] = {TERMINAL, NULL};
 
 /*
  * Xresources preferences to load at startup
