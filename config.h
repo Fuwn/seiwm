@@ -6,9 +6,9 @@
 #define TERMCLASS "kitty"
 #define TERMCLASS2 "St"
 #define BROWSER "firefox"
-#define WMNAME "sei"
 
 /* appearance */
+static const char *wmname = "sei";
 static unsigned int borderpx = 2; /* border pixel of windows */
 static unsigned int snap = 32;    /* snap pixel */
 static const unsigned int systraypinning =
@@ -23,12 +23,12 @@ static const int systraypinningfailfirst =
 static const int showsystray = 1; /* 0 means no systray */
 static const unsigned int roundedcorners = 0;
 static const unsigned int cornerradius = 10;
-static unsigned int gappih = 20; /* horiz inner gap between windows */
+static unsigned int gappih = 10; /* horiz inner gap between windows */
 static unsigned int gappiv = 10; /* vert inner gap between windows */
 static unsigned int gappoh =
     10; /* horiz outer gap between windows and screen edge */
 static unsigned int gappov =
-    30; /* vert outer gap between windows and screen edge */
+    10; /* vert outer gap between windows and screen edge */
 static int swallowfloating =
     0; /* 1 means swallow floating windows by default */
 static int smartgaps =
@@ -40,7 +40,7 @@ static int topbar = 1;  /* 0 means bottom bar */
 static const int user_bh = 0;  /* 0 means that dwm will calculate bar height, >=
                                   1 means dwm will user_bh as bar height */
 static const int vertpad = 10; /* vertical padding of bar */
-static const int sidepad = 30; /* horizontal padding of bar */
+static const int sidepad = 10; /* horizontal padding of bar */
 /* static char *fonts[]          = { "monospace:size=10",
  * "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true"  }; */
 static char *fonts[] = {
