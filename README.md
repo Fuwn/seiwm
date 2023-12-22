@@ -13,6 +13,10 @@
 - [shiftview](https://dwm.suckless.org/patches/nextprev/): Cycle through tags (<kbd>super+g/;</kbd>).
 - [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/): Gaps allowed across all layouts.
 - [swallow patch](https://dwm.suckless.org/patches/swallow/): if a program run from a terminal would make it inoperable, it temporarily takes its place to save space.
+- [System Tray](https://dwm.suckless.org/patches/systray/)
+- [Bidirectional Text](https://dwm.suckless.org/patches/bidi/)
+- [Bar Padding](https://dwm.suckless.org/patches/barpadding/)
+- [Window Icon](https://dwm.suckless.org/patches/winicon/)
 
 ## Installation
 
