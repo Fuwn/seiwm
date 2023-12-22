@@ -1,5 +1,7 @@
 # 🪄 A fixed, patched, and modified window manager from a dwm base
 
+<img src="https://i.imgur.com/nxjjDO6.png">
+
 ## Installation
 
 ```bash
