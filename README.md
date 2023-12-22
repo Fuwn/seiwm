@@ -12,7 +12,13 @@ cd seiwm
 sudo make install
 ```
 
-Also available is a `PKGBUILD`, usable on distributions with `pacman` by running `makepkg -si`.
+Also available is a `PKGBUILD`, usable on distributions with `pacman`. Executing `makepkg -si` will install both Sei and all build dependencies.
+
+### Build Dependencies
+
+- [freetype2](https://freetype.org/)
+- [libx11](https://x.org/releases/current/doc/libX11/libX11/libX11.html)
+- [libxft](https://gitlab.freedesktop.org/xorg/lib/libxft)
 
 ## Patches
 
