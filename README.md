@@ -12,7 +12,9 @@ cd seiwm
 sudo make install
 ```
 
-Also available is a `PKGBUILD`, usable on distributions with `pacman`. Executing
+Also available is a [`PKGBUILD`](https://wiki.archlinux.org/title/PKGBUILD),
+usable on distributions with
+[`pacman`](https://wiki.archlinux.org/title/Pacman). Executing
 `makepkg -si` will install both Sei and all build dependencies.
 
 ### Build Dependencies
@@ -24,7 +26,8 @@ Also available is a `PKGBUILD`, usable on distributions with `pacman`. Executing
 ## Patches
 
 - [xresources](https://dwm.suckless.org/patches/xresources/): Applies colours
-  and other variables (i.e. using `pywal`, etc.)
+  and other variables (i.e. using [`pywal`](https://github.com/dylanaraps/pywal)
+  , etc.)
 - [scratchpad](https://dwm.suckless.org/patches/scratchpad/): Accessible using
   <kbd>mod+shift+enter</kbd>
 - [fibonacci](https://dwm.suckless.org/patches/fibonacci/),
