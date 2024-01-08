@@ -484,10 +484,14 @@ void comboview(const Arg *arg) {
   if (combo) {
     selmon->tagset[selmon->seltags] |= newtags;
   } else {
-    selmon->seltags ^= 1; /*toggle tagset*/
+    /* https://www.reddit.com/r/suckless/comments/g1fxyn/making_pertag_and_combo_play_nicely_together/fnffllq/
+     */
+    view(arg);            /* <---- dirty hack */
+    selmon->seltags ^= 1; /* toggle tagset */
     combo = 1;
-    if (newtags)
+    if (newtags) {
       selmon->tagset[selmon->seltags] = newtags;
+    }
   }
   focus(NULL);
   arrange(selmon);
