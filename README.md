@@ -61,3 +61,5 @@ usable on distributions with
 - [zoomswap](https://dwm.suckless.org/patches/zoomswap/): Swap client and master
   in-place when assigning new master
 - [pertag](https://dwm.suckless.org/patches/pertag/): Tag-unique layouts
+- [combo](https://dwm.suckless.org/patches/combo/): View multiple tags at once by
+  holding down the mod key and one or more tags
