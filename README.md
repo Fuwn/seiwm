@@ -56,3 +56,5 @@ usable on distributions with
   bar
 - [winicon](https://dwm.suckless.org/patches/winicon/): Active window icon shown
   in status bar
+- [attachaside](https://dwm.suckless.org/patches/attachaside/): Attach and focus
+  new clients to the side instead of making it the new master
