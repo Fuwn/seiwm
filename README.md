@@ -60,3 +60,4 @@ usable on distributions with
   new clients to the side instead of making it the new master
 - [zoomswap](https://dwm.suckless.org/patches/zoomswap/): Swap client and master
   in-place when assigning new master
+- [pertag](https://dwm.suckless.org/patches/pertag/): Tag-unique layouts
