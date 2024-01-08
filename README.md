@@ -63,3 +63,4 @@ usable on distributions with
 - [pertag](https://dwm.suckless.org/patches/pertag/): Tag-unique layouts
 - [combo](https://dwm.suckless.org/patches/combo/): View multiple tags at once by
   holding down the mod key and one or more tags
+- [nametag](https://dwm.suckless.org/patches/nametag/): Name tags using <kbd>mod+n</kbd>
