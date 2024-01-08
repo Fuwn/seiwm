@@ -58,3 +58,5 @@ usable on distributions with
   in status bar
 - [attachaside](https://dwm.suckless.org/patches/attachaside/): Attach and focus
   new clients to the side instead of making it the new master
+- [zoomswap](https://dwm.suckless.org/patches/zoomswap/): Swap client and master
+  in-place when assigning new master
