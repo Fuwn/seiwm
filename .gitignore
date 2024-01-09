@@ -4,6 +4,6 @@
 larbs.pdf
 patches
 util.o
-dwm
-dwm.o
+sei
+sei.o
 drw.o

@@ -6,7 +6,7 @@
  * events about window (dis-)appearance. Only one X connection at a time is
  * allowed to select for this event mask.
  *
- * The event handlers of dwm are organized in an array which is accessed
+ * The event handlers of sei are organized in an array which is accessed
  * whenever a new event has been fetched. This allows event dispatching
  * in O(1) time.
  *
@@ -1798,14 +1798,14 @@ void nametag(const Arg *arg) {
 
   errno = 0; // popen(3p) says on failure it "may" set errno
   if (!(f = popen("dmenu < /dev/null", "r"))) {
-    fprintf(stderr, "dwm: popen 'dmenu < /dev/null' failed%s%s\n",
+    fprintf(stderr, "sei: popen 'dmenu < /dev/null' failed%s%s\n",
             errno ? ": " : "", errno ? strerror(errno) : "");
     return;
   }
   if (!(p = fgets(name, MAX_TAGNAME_LEN, f)) && (i = errno) && ferror(f))
-    fprintf(stderr, "dwm: fgets failed: %s\n", strerror(i));
+    fprintf(stderr, "sei: fgets failed: %s\n", strerror(i));
   if (pclose(f) < 0)
-    fprintf(stderr, "dwm: pclose failed: %s\n", strerror(errno));
+    fprintf(stderr, "sei: pclose failed: %s\n", strerror(errno));
   if (!p)
     return;
   if ((p = strchr(name, '\n')))
@@ -2388,7 +2388,7 @@ void spawn(const Arg *arg) {
       close(ConnectionNumber(dpy));
     setsid();
     execvp(((char **)arg->v)[0], (char **)arg->v);
-    die("dwm: execvp '%s' failed:", ((char **)arg->v)[0]);
+    die("sei: execvp '%s' failed:", ((char **)arg->v)[0]);
   }
 }
 
@@ -2795,7 +2795,7 @@ void updatesizehints(Client *c) {
 
 void updatestatus(void) {
   if (!gettextprop(root, XA_WM_NAME, rawstext, sizeof(rawstext)))
-    strcpy(stext, "dwm-" VERSION);
+    strcpy(stext, "sei-" VERSION);
   else
     copyvalidchars(stext, rawstext);
   drawbar(selmon);
@@ -3019,7 +3019,7 @@ int xerror(Display *dpy, XErrorEvent *ee) {
       (ee->request_code == X_GrabKey && ee->error_code == BadAccess) ||
       (ee->request_code == X_CopyArea && ee->error_code == BadDrawable))
     return 0;
-  fprintf(stderr, "dwm: fatal error: request code=%d, error code=%d\n",
+  fprintf(stderr, "sei: fatal error: request code=%d, error code=%d\n",
           ee->request_code, ee->error_code);
   return xerrorxlib(dpy, ee); /* may call exit */
 }
@@ -3029,7 +3029,7 @@ int xerrordummy(Display *dpy, XErrorEvent *ee) { return 0; }
 /* Startup Error handler to check if another window manager
  * is already running. */
 int xerrorstart(Display *dpy, XErrorEvent *ee) {
-  die("dwm: another window manager is already running");
+  die("sei: another window manager is already running");
   return -1;
 }
 
@@ -3209,7 +3209,7 @@ void updatesystray(void) {
                 netatom[NetSystemTray], systray->win, 0, 0);
       XSync(dpy, False);
     } else {
-      fprintf(stderr, "dwm: unable to obtain system tray.\n");
+      fprintf(stderr, "sei: unable to obtain system tray.\n");
       free(systray);
       systray = NULL;
       return;
@@ -3361,15 +3361,15 @@ void resizerequest(XEvent *e) {
 
 int main(int argc, char *argv[]) {
   if (argc == 2 && !strcmp("-v", argv[1]))
-    die("dwm-" VERSION);
+    die("sei-" VERSION);
   else if (argc != 1)
-    die("usage: dwm [-v]");
+    die("usage: sei [-v]");
   if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
     fputs("warning: no locale support\n", stderr);
   if (!(dpy = XOpenDisplay(NULL)))
-    die("dwm: cannot open display");
+    die("sei: cannot open display");
   if (!(xcon = XGetXCBConnection(dpy)))
-    die("dwm: cannot get xcb connection\n");
+    die("sei: cannot get xcb connection\n");
   checkotherwm();
   XrmInitialize();
   load_xresources();
