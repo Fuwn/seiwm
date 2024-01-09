@@ -40,9 +40,11 @@ install: all
 	sed "s/VERSION/${VERSION}/g" < sei.1 > ${DESTDIR}${MANPREFIX}/man1/sei.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/sei.1
 	mkdir -p ${DESTDIR}${PREFIX}/share/sei
+	cp -f sei.desktop /usr/share/xsessions/sei.desktop
 
 uninstall:
-	rm -f ${DESTDIR}${PREFIX}/bin/sei\
-		${DESTDIR}${MANPREFIX}/man1/sei.1
+	rm -f ${DESTDIR}${PREFIX}/bin/sei \
+	/usr/share/xsessions/sei.desktop \
+	${DESTDIR}${MANPREFIX}/man1/sei.1
 
 .PHONY: all options clean dist install uninstall

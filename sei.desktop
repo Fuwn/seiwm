@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=XSession
+Exec=sei
+TryExec=sei
+DesktopNames=sei
+Name=sei
