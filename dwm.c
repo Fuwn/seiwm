@@ -1813,13 +1813,17 @@ void nametag(const Arg *arg) {
 
   for (i = 0; i < LENGTH(tags); i++)
     if (selmon->tagset[selmon->seltags] & (1 << i)) {
-      strcpy(tags[i], tags_original[i]);
+      if (append_nametag == 1) {
+        strcpy(tags[i], tags_original[i]);
 
-      if (strlen(name) != 0)
-        strcat(tags[i], " ");
+        if (strlen(name) != 0)
+          strcat(tags[i], " ");
 
-      sprintf(tags[i], TAG_PREPEND, tags[i]);
-      strcat(tags[i], name);
+        sprintf(tags[i], TAG_PREPEND, tags[i]);
+        strcat(tags[i], name);
+      } else {
+        strcpy(tags[i], name);
+      }
     }
   drawbars();
 }

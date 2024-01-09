@@ -79,6 +79,10 @@ static Sp scratchpads[] = {
 #define TAGS                                                                   \
   { "一", "二", "三", "四", "五", "六", "七", "八", "九" }
 static char tags[][MAX_TAGLEN] = TAGS;
+/* append_nametag:
+ *   1: append the new nametag to the original tag label from above
+ *   0: overwrite original tag label with new nametag */
+static const unsigned int append_nametag = 1;
 
 static const Rule rules[] = {
     /* xprop(1):
