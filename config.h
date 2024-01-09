@@ -189,8 +189,8 @@ static const Key keys[] = {
     {MODKEY,
      XK_grave,
      spawn,
-     {.v = (const char *[]){"rofi", "-modi", "\"emoji:rofimoji\"", "-show",
-                            "emoji", NULL}}}, /* dmenuunicode */
+     {.v = (const char *[]){"rofi", "-modi", "emoji", "-show", "emoji",
+                            NULL}}}, /* dmenuunicode */
     /* { MODKEY|ShiftMask,		XK_grave,	togglescratch,
      * SHCMD("")
      * },
