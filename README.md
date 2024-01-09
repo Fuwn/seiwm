@@ -10,12 +10,12 @@
 git clone https://github.com/Fuwn/seiwm.git
 cd seiwm
 sudo make install
-```
 
-Also available is a [`PKGBUILD`](https://wiki.archlinux.org/title/PKGBUILD),
-usable on distributions with
-[`pacman`](https://wiki.archlinux.org/title/Pacman). Executing
-`makepkg -si` will install both Sei and all build dependencies.
+# or
+
+curl https://raw.githubusercontent.com/Fuwn/seiwm/master/PKGBUILD
+makepkg -si
+```
 
 ### Build Dependencies
 
