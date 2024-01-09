@@ -463,6 +463,7 @@ struct NumTags {
 
 /* function implementations */
 static int combo = 0;
+static char tags_original[][MAX_TAGLEN] = TAGS;
 
 void keyrelease(XEvent *e) { combo = 0; }
 
@@ -1812,6 +1813,11 @@ void nametag(const Arg *arg) {
 
   for (i = 0; i < LENGTH(tags); i++)
     if (selmon->tagset[selmon->seltags] & (1 << i)) {
+      strcpy(tags[i], tags_original[i]);
+
+      if (strlen(name) != 0)
+        strcat(tags[i], " ");
+
       sprintf(tags[i], TAG_PREPEND, tags[i]);
       strcat(tags[i], name);
     }

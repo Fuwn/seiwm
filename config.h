@@ -74,10 +74,11 @@ static Sp scratchpads[] = {
 
 /* tagging */
 #define MAX_TAGNAME_LEN 14 /* excludes TAG_PREPEND */
-#define TAG_PREPEND "%s "
+#define TAG_PREPEND "%s"
 #define MAX_TAGLEN 16
-static char tags[][MAX_TAGLEN] = {"一", "二", "三", "四", "五",
-                                  "六", "七", "八", "九"};
+#define TAGS                                                                   \
+  { "一", "二", "三", "四", "五", "六", "七", "八", "九" }
+static char tags[][MAX_TAGLEN] = TAGS;
 
 static const Rule rules[] = {
     /* xprop(1):
