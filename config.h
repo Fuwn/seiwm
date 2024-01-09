@@ -393,8 +393,6 @@ static const Key keys[] = {
      SHCMD("xdotool type $(grep -v '^#' ~/.local/share/larbs/snippets | dmenu "
            "-i -l 50 | cut -d' ' -f1)")},
 
-    {MODKEY, XK_F1, spawn,
-     SHCMD("groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -")},
     {MODKEY, XK_F2, spawn, {.v = (const char *[]){"tutorialvids", NULL}}},
     {MODKEY, XK_F3, spawn, {.v = (const char *[]){"displayselect", NULL}}},
     {MODKEY, XK_F4, spawn,
