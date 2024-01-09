@@ -346,7 +346,7 @@ static const Key keys[] = {
     // { MODKEY|ShiftMask,		XK_n,		spawn,
     // SHCMD(TERMINAL " -e newsboat ; pkill -RTMIN+6 dwmblocks") },
     {MODKEY | ShiftMask, XK_n, spawn,
-     SHCMD("firefox https://sumi.news ; pkill -RTMIN+6 dwmblocks")},
+     SHCMD(BROWSER " https://sumi.news ; pkill -RTMIN+6 dwmblocks")},
     {MODKEY,
      XK_m,
      spawn,
