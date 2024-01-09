@@ -1,0 +1,14 @@
+name: 統・Integration
+on: [push, pull_request]
+jobs:
+  test:
+    name: テスト・Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: システム・Package Lists
+        run: sudo apt-get update
+      - name: システム・Dependencies
+        run: sudo apt-get install -y build-essential libimlib2-dev libxft-dev libfribidi-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev
+      - name: システム・Compilation
+        run: make
