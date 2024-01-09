@@ -1,9 +1,9 @@
-_pkgname=dwm
-pkgname=$_pkgname-larbs-git
-pkgver=6.2.r1888.0ac09e0
+_pkgname=seiwm
+pkgname=$_pkgname-git
+pkgver=6.4.r1929.499d9e5
 pkgrel=1
-pkgdesc="Luke's build of dwm"
-url=https://github.com/LukeSmithxyz/dwm
+pkgdesc="A fixed, patched, and modified window manager from a dwm base"
+url=https://github.com/Fuwn/seiwm
 arch=(i686 x86_64)
 license=(MIT)
 makedepends=(git)
@@ -13,7 +13,7 @@ optdepends=(
 	'st: terminal emulator')
 provides=($_pkgname)
 conflicts=($_pkgname)
-source=(git+https://github.com/LukeSmithxyz/dwm)
+source=(git+https://github.com/Fuwn/seiwm)
 sha256sums=('SKIP')
 
 pkgver() {
@@ -23,9 +23,9 @@ pkgver() {
 
 prepare() {
 	cd "$_pkgname"
-	echo "CPPFLAGS+=${CPPFLAGS}" >> config.mk
-	echo "CFLAGS+=${CFLAGS}" >> config.mk
-	echo "LDFLAGS+=${LDFLAGS}" >> config.mk
+	echo "CPPFLAGS+=${CPPFLAGS}" >>config.mk
+	echo "CFLAGS+=${CFLAGS}" >>config.mk
+	echo "LDFLAGS+=${LDFLAGS}" >>config.mk
 	# to use a custom config.h, place it in the package directory
 	if [[ -f ${SRCDEST}/config.h ]]; then
 		cp "${SRCDEST}/config.h" .
