@@ -1115,6 +1115,7 @@ void apply_fribidi(char *str) {
 
 void drawbar(Monitor *m) {
   int x, w, tw = 0, stw = 0;
+  int tlpad;
   int boxs = drw->fonts->h / 9;
   int boxw = drw->fonts->h / 6 + 2;
   unsigned int i, occ = 0, urg = 0;
@@ -1160,12 +1161,22 @@ void drawbar(Monitor *m) {
     if (m->sel) {
       drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
       apply_fribidi(m->sel->name);
-      drw_text(drw, x, 0, w - 2 * sp, bh,
-               lrpad / 2 + (m->sel->icon ? m->sel->icw + ICONSPACING : 0),
-               fribidi_text, 0);
-      if (m->sel->icon)
-        drw_pic(drw, x + lrpad / 2, (bh - m->sel->ich) / 2, m->sel->icw,
-                m->sel->ich, m->sel->icon);
+      if (centretitle) {
+        tlpad = MAX((m->ww - ((int)TEXTW(fribidi_text) - lrpad)) / 2 - x,
+                    lrpad / 2 + (m->sel->icon ? m->sel->icw + ICONSPACING : 0));
+        drw_text(drw, x, 0, w - 2 * sp, bh, tlpad, fribidi_text, 0);
+        if (m->sel->icon)
+          drw_pic(
+              drw, x + tlpad - (m->sel->icon ? m->sel->icw + ICONSPACING : 0),
+              (bh - m->sel->ich) / 2, m->sel->icw, m->sel->ich, m->sel->icon);
+      } else {
+        drw_text(drw, x, 0, w - 2 * sp, bh,
+                 lrpad / 2 + (m->sel->icon ? m->sel->icw + ICONSPACING : 0),
+                 fribidi_text, 0);
+        if (m->sel->icon)
+          drw_pic(drw, x + lrpad / 2, (bh - m->sel->ich) / 2, m->sel->icw,
+                  m->sel->ich, m->sel->icon);
+      }
       if (m->sel->isfloating)
         drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
     } else {

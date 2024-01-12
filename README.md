@@ -62,5 +62,7 @@ makepkg -si
   in-place when assigning new master
 - [pertag](https://dwm.suckless.org/patches/pertag/): Tag-unique layouts
 - [combo](https://dwm.suckless.org/patches/combo/): View multiple tags at once by
-  holding down the mod key and one or more tags
+  holding down the mod key and one or more tag
 - [nametag](https://dwm.suckless.org/patches/nametag/): Name tags using <kbd>mod+n</kbd>
+- [centretitle](https://dwm.suckless.org/patches/centretitle/): Optionally
+  centre the focused client's title
