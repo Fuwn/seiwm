@@ -19,9 +19,13 @@ makepkg -si
 
 ### Build Dependencies
 
-- [freetype2](https://freetype.org/)
-- [libx11](https://x.org/releases/current/doc/libX11/libX11/libX11.html)
-- [libxft](https://gitlab.freedesktop.org/xorg/lib/libxft)
+- [FreeType2](https://freetype.org/)
+- [libX11](https://x.org/releases/current/doc/libX11/libX11/libX11.html)
+- [libXft](https://gitlab.freedesktop.org/xorg/lib/libxft)
+- [Imlib2](https://docs.enlightenment.org/api/imlib2/html/index.html)
+- [GNU FriBidi](https://github.com/fribidi/fribidi)
+- [libXinerama](https://gitlab.freedesktop.org/xorg/lib/libxinerama)
+- [xcb](https://xcb.freedesktop.org/)
 
 ## Patches
 
