@@ -2,7 +2,7 @@
 
 > A fixed, patched, and modified window manager from a dwm base
 
-[![Screenshot](https://i.imgur.com/nxjjDO6.png)](https://i.imgur.com/nxjjDO6.png)
+[![Screenshot](https://i.imgur.com/GEDBZ6N.png)](https://i.imgur.com/GEDBZ6N.png)
 
 ## Installation
 
@@ -26,6 +26,10 @@ makepkg -si
 - [GNU FriBidi](https://github.com/fribidi/fribidi)
 - [libXinerama](https://gitlab.freedesktop.org/xorg/lib/libxinerama)
 - [xcb](https://xcb.freedesktop.org/)
+
+## Recommendations
+
+- Use [Compfy](https://github.com/allusive-dev/compfy) for X11 compositing for "transparency, background blurring, rounded corners, animations and way more!"
 
 ## Patches
 
