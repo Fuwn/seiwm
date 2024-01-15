@@ -70,3 +70,5 @@ makepkg -si
 - [nametag](https://dwm.suckless.org/patches/nametag/): Name tags using <kbd>mod+n</kbd>
 - [centretitle](https://dwm.suckless.org/patches/centretitle/): Optionally
   centre the focused client's title
+- [cursor](https://dwm.suckless.org/patches/cursorwarp/): Warps the mouse cursor
+  to the center of the target window when changing focus

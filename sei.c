@@ -1282,6 +1282,9 @@ void focusmon(const Arg *arg) {
   unfocus(selmon->sel, 0);
   selmon = m;
   focus(NULL);
+  if (selmon->sel)
+    XWarpPointer(dpy, None, selmon->sel->win, 0, 0, 0, 0, selmon->sel->w / 2,
+                 selmon->sel->h / 2);
 }
 
 void focusstack(const Arg *arg) {
@@ -1296,6 +1299,7 @@ void focusstack(const Arg *arg) {
     ;
   focus(c ? c : p);
   restack(selmon);
+  XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w / 2, c->h / 2);
 }
 
 Atom getatomprop(Client *c, Atom prop) {
@@ -1657,6 +1661,8 @@ void manage(Window w, XWindowAttributes *wa) {
     swallow(term, c);
   arrange(c->mon);
   focus(NULL);
+  if (c && c->mon == selmon)
+    XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w / 2, c->h / 2);
 }
 
 void mappingnotify(XEvent *e) {
@@ -2581,6 +2587,9 @@ void unmanage(Client *c, int destroyed) {
     s->swallowing = NULL;
     arrange(m);
     focus(NULL);
+    if (m == selmon && m->sel)
+      XWarpPointer(dpy, None, m->sel->win, 0, 0, 0, 0, m->sel->w / 2,
+                   m->sel->h / 2);
     return;
   }
 
@@ -2605,6 +2614,9 @@ void unmanage(Client *c, int destroyed) {
     arrange(m);
     focus(NULL);
     updateclientlist();
+    if (m == selmon && m->sel)
+      XWarpPointer(dpy, None, m->sel->win, 0, 0, 0, 0, m->sel->w / 2,
+                   m->sel->h / 2);
   }
 }
 
