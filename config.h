@@ -357,7 +357,7 @@ static const Key keys[] = {
     {MODKEY,
      XK_m,
      spawn,
-     {.v = (const char *[]){TERMINAL, "-e", "spt",
+     {.v = (const char *[]){TERMINAL, "-e", "ncspot",
                             NULL}}}, /* ncmpcpp, spotify */
     {MODKEY | ShiftMask, XK_m, spawn,
      SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof "
