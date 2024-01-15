@@ -237,9 +237,10 @@ static const Key keys[] = {
     // {MODKEY | ShiftMask, XK_e, spawn,
     //  SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile "
     //                 "~/.config/abook/addressbook")},
-    // { MODKEY,			XK_r,		spawn,		{.v =
-    // (const char*[]){ TERMINAL,
-    // "-e", "lfub", NULL } } },
+    {MODKEY,
+     XK_r,
+     spawn,
+     {.v = (const char *[]){TERMINAL, "-e", "hunter", NULL}}},
     // {MODKEY,
     //  XK_r,
     //  spawn,
