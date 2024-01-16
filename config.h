@@ -5,7 +5,7 @@
 #define TERMINAL2 "st"
 #define TERMCLASS "kitty"
 #define TERMCLASS2 "St"
-#define BROWSER "firefox"
+#define BROWSER "floorp"
 
 /* appearance */
 static const char *wmname = "sei";
