@@ -8,7 +8,7 @@
 #define BROWSER "floorp"
 
 /* appearance */
-static const char *wmname = "sei";
+static char wmname[] = "sei";
 static unsigned int borderpx = 2; /* border pixel of windows */
 static unsigned int snap = 32;    /* snap pixel */
 static const unsigned int systraypinning =
