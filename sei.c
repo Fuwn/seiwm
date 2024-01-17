@@ -307,7 +307,7 @@ static void movemouse(const Arg *arg);
 static void nametag(const Arg *arg);
 static Client *nexttagged(Client *c);
 static Client *nexttiled(Client *c);
-static void pop(Client *c);
+// static void pop(Client *c);
 static void propertynotify(XEvent *e);
 static void pushstack(const Arg *arg);
 static void quit(const Arg *arg);
@@ -1851,12 +1851,12 @@ Client *nexttiled(Client *c) {
   return c;
 }
 
-void pop(Client *c) {
-  detach(c);
-  attach(c);
-  focus(c);
-  arrange(c->mon);
-}
+// void pop(Client *c) {
+//   detach(c);
+//   attach(c);
+//   focus(c);
+//   arrange(c->mon);
+// }
 
 void pushstack(const Arg *arg) {
   int i = stackpos(arg);
