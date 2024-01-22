@@ -341,7 +341,7 @@ static const Key keys[] = {
      * },
      */
     /* V is automatically bound above in STACKKEYS */
-    {MODKEY, XK_b, togglebar, {0}},
+    {MODKEY, XK_b, togglebar, {.i = 2}},
     /* { MODKEY|ShiftMask,		XK_b,		spawn, SHCMD("")
      * },
      */

@@ -408,6 +408,7 @@ static int sw, sh; /* X display screen geometry width, height */
 static int bh;     /* bar height */
 // static int enablefullscreen = 0;
 static int enableoutergaps = 1;
+static int manuallytoggledbar = 0;
 static int lrpad; /* sum of left and right padding for text */
 static int vp;    /* vertical padding for bar */
 static int sp;    /* side padding for bar */
@@ -2433,6 +2434,13 @@ void tagmon(const Arg *arg) {
 }
 
 void togglebar(const Arg *arg) {
+  if (arg != NULL && arg->i) {
+    if (manuallytoggledbar == 1 && arg->i == 2)
+      manuallytoggledbar = 0;
+    else if (manuallytoggledbar == 0 && arg->i == 2)
+      manuallytoggledbar = 1;
+  }
+
   selmon->showbar = selmon->pertag->showbars[selmon->pertag->curtag] =
       !selmon->showbar;
   updatebarpos(selmon);
@@ -2466,7 +2474,13 @@ void togglefloating(const Arg *arg) {
 void togglefullscr(const Arg *arg) {
   if (selmon->sel) {
     setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
-    togglebar(NULL);
+
+    if (((!selmon->sel->isfullscreen &&
+          !selmon->pertag->showbars[selmon->pertag->curtag]) ||
+         (selmon->sel->isfullscreen &&
+          selmon->pertag->showbars[selmon->pertag->curtag])) &&
+        manuallytoggledbar == 0)
+      togglebar(NULL);
   }
 }
 

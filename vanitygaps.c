@@ -27,6 +27,8 @@ static void setgaps(int oh, int ov, int ih, int iv);
 
 /* Settings */
 static int enablegaps = 1;
+static const vertpad_original = vertpad;
+static const sidepad_original = sidepad;
 
 static void setgaps(int oh, int ov, int ih, int iv) {
   if (oh < 0)
