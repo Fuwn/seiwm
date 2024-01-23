@@ -470,14 +470,29 @@ void keyrelease(XEvent *e) { combo = 0; }
 
 void combotag(const Arg *arg) {
   if (selmon->sel && arg->ui & TAGMASK) {
+    Client *target = selmon->sel;
+
     if (combo) {
       selmon->sel->tags |= arg->ui & TAGMASK;
     } else {
       combo = 1;
       selmon->sel->tags = arg->ui & TAGMASK;
     }
+
     focus(NULL);
     arrange(selmon);
+
+    if (followclient) {
+      Client *c;
+      int i = 0;
+
+      for (c = target->mon->clients; c && !ISVISIBLE(c); c = c->next)
+        if (c->tags == target->tags)
+          i += 1;
+
+      if (i <= 1)
+        view(arg);
+    }
   }
 }
 
