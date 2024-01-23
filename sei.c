@@ -2460,7 +2460,7 @@ void togglebar(const Arg *arg) {
       !selmon->showbar;
   updatebarpos(selmon);
   resizebarwin(selmon);
-  if (showsystray) {
+  if (showsystray && selmon == systraytomon(selmon)) {
     XWindowChanges wc;
     if (!selmon->showbar)
       wc.y = -bh;

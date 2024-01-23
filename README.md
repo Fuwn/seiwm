@@ -29,21 +29,28 @@ makepkg -si
 
 ## Recommendations
 
-- Use [Compfy](https://github.com/allusive-dev/compfy) for X11 compositing for "transparency, background blurring, rounded corners, animations and way more!"
-- Install and specify [Zig](https://ziglang.org/) as `CC` inside of [`config.mk`](https://github.com/Fuwn/seiwm/blob/master/config.mk#L43) for improved memory allocation and runtime speed: `CC = zig cc`
+- Use [Compfy](https://github.com/allusive-dev/compfy) for X11 compositing for
+  "transparency, background blurring, rounded corners, animations and way more!"
 
 ## Sei Specific Fixes & Patches
 
 - Removed refresh rate limit
 - Fixed tray position and button responsiveness for use with custom padding
-- Reactive bar toggling: If the user has manually toggled the bar visibility using <kbd>mod+b</kbd>, the bar
-  will stay locked with the same visibility. If the user has not manually toggled the bar visibility, the bar visibility will
+- Reactive bar toggling: If the user has manually toggled the bar visibility
+  using <kbd>mod+b</kbd>, the bar
+  will stay locked with the same visibility. If the user has not manually
+  toggled the bar visibility, the bar visibility will
   reflect that of the full-screen state.
-- Clear nametag patch's current tag name upon new assignment and reset tag name to default upon empty string. (why is this not default behaviour?)
-- Append mode for nametag: Chose between appending the name of a tag to the default name or to overwrite it completely
+- Clear nametag patch's current tag name upon new assignment and reset tag name
+  to default upon empty string. (why is this not default behaviour?)
+- Append mode for nametag: Chose between appending the name of a tag to the
+  default name or to overwrite it completely
 - XSession desktop entry
 - centretitle patch toggle
-- followclient: Optionally follow a client's view if the target tag is empty
+- `followclient`: Optionally follow a client's view if the target tag is empty
+- `systraypinning` toggle fix: If `systraypinning` is enabled, the system tray will
+  only toggle its visibility if the mutation originates from the monitor it is
+  pinned on.
 
 ## "Official" Patches
 
