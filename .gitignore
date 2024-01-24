@@ -9,4 +9,5 @@ sei.o
 drw.o
 
 # Ninja
-/.ninja_*
+.ninja_*
+compile_commands.json

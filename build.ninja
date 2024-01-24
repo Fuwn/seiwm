@@ -30,12 +30,18 @@ rule link
 rule clang_format
   command = clang-format -i -style=LLVM ./*.c ./*.h
 
+rule clang_tidy
+  command = ninja -t compdb > compile_commands.json && clang-tidy ./*.c ./*.h
+
 build _options:   _options
 build _install:   _install
 build _uninstall: _uninstall
 
 build _format: clang_format
 build format:  phony _format
+
+build _tidy: clang_tidy
+build tidy:  phony _tidy
 
 build options: phony _options
   pool = console
