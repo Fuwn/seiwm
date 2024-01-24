@@ -31,6 +31,9 @@ makepkg -si
 
 - Use [Compfy](https://github.com/allusive-dev/compfy) for X11 compositing for
   "transparency, background blurring, rounded corners, animations and way more!"
+- Install and specify [Zig](https://ziglang.org/) as `CC` inside of
+  [`rules.ninja`](https://github.com/Fuwn/seiwm/blob/master/rules.ninja#L42) for
+  improved memory allocation efficiency and runtime speed: `CC = zig cc`
 
 ## Sei Specific Fixes & Patches
 
