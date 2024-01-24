@@ -1,0 +1,43 @@
+# The current sei version which is generally in sync with the current dwm
+# version
+VERSION = 6.4
+
+# Paths
+PREFIX    = /usr/local
+MANPREFIX = ${PREFIX}/share/man
+
+X11INC = /usr/include/X11
+X11LIB = /usr/lib/X11
+
+# libXinerama
+XINERAMALIBS  = -lXinerama
+XINERAMAFLAGS = -DXINERAMA
+
+# FreeType2
+FREETYPELIBS = -lfontconfig -lXft
+FREETYPEINC = /usr/include/freetype2
+
+# OpenBSD
+# MANPREFIX   = ${PREFIX}/man
+# FREETYPEINC = ${X11INC}/freetype2
+
+# GNU FriBidi
+BDLIBS = -lfribidi
+BDINC = /usr/include/fribidi
+
+INCS = -I${X11INC} -I${FREETYPEINC} -I${BDINC}
+LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS} -lX11-xcb -lxcb -lxcb-res -lXext ${BDLIBS} -lXrender -lImlib2
+
+# Flags
+CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+# CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
+CFLAGS   = -std=c99 -pedantic -Wall -Wno-deprecated-declarations -O2 ${INCS} ${CPPFLAGS}
+LDFLAGS  = ${LIBS}
+
+# Solaris
+# CFLAGS  = -fast ${INCS} -DVERSION=\"${VERSION}\"
+# LDFLAGS = ${LIBS}
+
+# Compiler
+CC = cc
+

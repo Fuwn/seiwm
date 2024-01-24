@@ -7,3 +7,6 @@ util.o
 sei
 sei.o
 drw.o
+
+# Ninja
+/.ninja_*

@@ -1,0 +1,51 @@
+ninja_required_version = 1.1
+
+include rules.ninja
+
+rule _install
+  command = mkdir -p ${DESTDIR}${PREFIX}/bin             && $
+	          install -Dm755 ./sei ${DESTDIR}${PREFIX}/bin && $
+	          mkdir -p ${DESTDIR}${MANPREFIX}/man1         && $
+            sed "s/VERSION/${VERSION}/g" < sei.1 > ${DESTDIR}${MANPREFIX}/man1/sei.1 && $
+            chmod 644 ${DESTDIR}${MANPREFIX}/man1/sei.1  && $
+            mkdir -p ${DESTDIR}${PREFIX}/share/sei       && $
+            cp -f sei.desktop /usr/share/xsessions/sei.desktop
+
+rule _uninstall
+  command = rm -f ${DESTDIR}${PREFIX}/bin/sei $
+            /usr/share/xsessions/sei.desktop  $
+	          ${DESTDIR}${MANPREFIX}/man1/sei.1
+
+rule _options
+  command = echo "CFLAGS   = ${CFLAGS}"  && $
+            echo "LDFLAGS  = ${LDFLAGS}" && $
+            echo "CC       = ${CC}"
+
+rule compile
+  command = ${CC} ${CFLAGS} -c ${in} -o ${out}
+
+rule link
+  command = ${CC} ${LDFLAGS} ${in} -o ${out}
+
+build _options:   _options
+build _install:   _install
+build _uninstall: _uninstall
+
+build options: phony _options
+  pool = console
+
+build drw.o:  compile drw.c
+build sei.o:  compile sei.c
+build util.o: compile util.c
+build sei:    link drw.o sei.o util.o
+
+build install: _install sei
+  pool = console
+  restat = 1
+
+build uninstall: phony _uninstall
+  pool = console
+  restat = 1
+
+default sei
+

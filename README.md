@@ -9,7 +9,7 @@
 ```bash
 git clone https://github.com/Fuwn/seiwm.git
 cd seiwm
-sudo make install
+sudo ninja install
 
 # or
 
