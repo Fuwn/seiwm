@@ -39,5 +39,5 @@ LDFLAGS  = ${LIBS}
 # LDFLAGS = ${LIBS}
 
 # Compiler
-CC = cc
+CC = $${CC:-cc}
 
