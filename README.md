@@ -29,7 +29,7 @@ makepkg -si
 
 ## Recommendations
 
-- Use [Compfy](https://github.com/allusive-dev/compfy) for X11 compositing for
+- Use [Compfy](https://github.com/Fuwn/compfy) for X11 compositing for
   "transparency, background blurring, rounded corners, animations and way more!"
 - Install and specify [Zig](https://ziglang.org/) as `CC` for improved memory
   allocation efficiency and runtime speed: `CC="zig cc" sudo ninja install`
