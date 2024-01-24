@@ -22,10 +22,10 @@ rule _options
             echo "CC       = ${CC}"
 
 rule compile
-  command = ${CC} ${CFLAGS} -c ${in} -o ${out}
+  command = ${CC} -c ${in} -o ${out} ${CFLAGS}
 
 rule link
-  command = ${CC} ${LDFLAGS} ${in} -o ${out}
+  command = ${CC} ${in} -o ${out} ${LDFLAGS}
 
 build _options:   _options
 build _install:   _install
