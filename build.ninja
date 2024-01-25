@@ -1,6 +1,6 @@
 ninja_required_version = 1.1
 
-include rules.ninja
+include config.ninja
 
 rule _install
   command = mkdir -p ${DESTDIR}${PREFIX}/bin             && $
@@ -20,6 +20,9 @@ rule _options
   command = echo "CFLAGS   = ${CFLAGS}"  && $
             echo "LDFLAGS  = ${LDFLAGS}" && $
             echo "CC       = ${CC}"
+
+rule _clean
+  command = ninja $FILE_ARG -t clean $TARGETS
 
 rule compile
   command = ${CC} -c ${in} -o ${out} ${CFLAGS}
@@ -42,6 +45,10 @@ build format:  phony _format
 
 build _tidy: clang_tidy
 build tidy:  phony _tidy
+
+build clean: _clean
+
+build all: phony options sei
 
 build options: phony _options
   pool = console
