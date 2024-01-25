@@ -1,4 +1,4 @@
-ninja_required_version = 1.1
+ninja_required_version = 1.11
 
 include config.ninja
 
@@ -31,18 +31,18 @@ rule link
   command = ${CC} ${in} -o ${out} ${LDFLAGS}
 
 rule clang_format
-  command = clang-format -i -style=LLVM ./*.c ./*.h
+  command = clang-format -i -style=LLVM ./*.{c,h}
 
 rule clang_tidy
-  command = ninja -t compdb > compile_commands.json && clang-tidy ./*.c ./*.h
+  command = ninja -t compdb > compile_commands.json && clang-tidy ./*.{c,h}
 
-build format:     clang_format
+build format: clang_format
 
-build tidy:       clang_tidy
+build tidy: clang_tidy
 
-build clean:      clean
+build clean: clean
 
-build all:        phony options sei
+build all: phony options sei
 
 build options: options
   pool = console
