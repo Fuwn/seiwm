@@ -1,8 +1,4 @@
-.gitignore
-*.orig
-*.rej
-larbs.pdf
-patches
+# Artifacts
 util.o
 sei
 sei.o
