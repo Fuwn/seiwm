@@ -1,4 +1,4 @@
-ninja_required_version = 1.11
+ninja_required_version = 1.10
 
 include config.ninja
 
