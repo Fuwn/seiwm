@@ -2,7 +2,7 @@ ninja_required_version = 1.1
 
 include config.ninja
 
-rule _install
+rule install
   command = mkdir -p ${DESTDIR}${PREFIX}/bin             && $
 	          install -Dm755 ./sei ${DESTDIR}${PREFIX}/bin && $
 	          mkdir -p ${DESTDIR}${MANPREFIX}/man1         && $
@@ -11,17 +11,17 @@ rule _install
             mkdir -p ${DESTDIR}${PREFIX}/share/sei       && $
             cp -f sei.desktop /usr/share/xsessions/sei.desktop
 
-rule _uninstall
+rule uninstall
   command = rm -f ${DESTDIR}${PREFIX}/bin/sei $
             /usr/share/xsessions/sei.desktop  $
 	          ${DESTDIR}${MANPREFIX}/man1/sei.1
 
-rule _options
+rule options
   command = echo "CFLAGS   = ${CFLAGS}"  && $
             echo "LDFLAGS  = ${LDFLAGS}" && $
             echo "CC       = ${CC}"
 
-rule _clean
+rule clean
   command = ninja $FILE_ARG -t clean $TARGETS
 
 rule compile
@@ -36,33 +36,28 @@ rule clang_format
 rule clang_tidy
   command = ninja -t compdb > compile_commands.json && clang-tidy ./*.c ./*.h
 
-build _options:   _options
-build _install:   _install
-build _uninstall: _uninstall
+build format:     clang_format
 
-build _format: clang_format
-build format:  phony _format
+build tidy:       clang_tidy
 
-build _tidy: clang_tidy
-build tidy:  phony _tidy
+build clean:      clean
 
-build clean: _clean
+build all:        phony options sei
 
-build all: phony options sei
-
-build options: phony _options
+build options: options
   pool = console
 
 build drw.o:  compile drw.c
 build sei.o:  compile sei.c
 build util.o: compile util.c
+
 build sei:    link drw.o sei.o util.o
 
-build install: _install sei
+build install: install sei
   pool = console
   restat = 1
 
-build uninstall: phony _uninstall
+build uninstall: uninstall
   pool = console
   restat = 1
 
