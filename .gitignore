@@ -11,3 +11,7 @@ drw.o
 # Ninja
 .ninja_*
 compile_commands.json
+
+# Zig
+.cache
+
