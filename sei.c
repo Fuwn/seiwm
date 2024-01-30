@@ -2116,8 +2116,17 @@ void sendmon(Client *c, Monitor *m) {
   attachaside(c);
   attachstack(c);
   setclienttagprop(c);
-  focus(NULL);
-  arrange(NULL);
+
+  if (followclient) {
+    focus(c);
+    arrange(c->mon);
+
+    if (c && c->mon == selmon)
+      XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w / 2, c->h / 2);
+  } else {
+    focus(NULL);
+    arrange(NULL);
+  }
 }
 
 void setclientstate(Client *c, long state) {

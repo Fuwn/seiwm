@@ -49,7 +49,9 @@ makepkg -si
   default name or to overwrite it completely
 - XSession desktop entry
 - centretitle patch toggle
-- `followclient`: Optionally follow a client's view if the target tag is empty
+- `followclient`:
+  - The view will follow the client when sent to an empty tag
+  - The focus and cursor will follow the client when sent to a new monitor
 - `systraypinning` toggle fix: If `systraypinning` is enabled, the system tray will
   only toggle its visibility if the mutation originates from the monitor it is
   pinned on.
