@@ -25,7 +25,8 @@ rule clean
   command = ninja $FILE_ARG -t clean $TARGETS
 
 rule compile
-  command = ${CC} -c ${in} -o ${out} ${CFLAGS}
+  command = ${CC} -c ${in} -o ${out} ${CFLAGS} -MMD -MF ${out}.d
+  depfile = ${out}.d
 
 rule link
   command = ${CC} ${in} -o ${out} ${LDFLAGS}

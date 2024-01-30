@@ -1,8 +1,7 @@
-# Artifacts
-util.o
+# Build Artifacts
+*.o
+*.d
 sei
-sei.o
-drw.o
 
 # Ninja
 .ninja_*
