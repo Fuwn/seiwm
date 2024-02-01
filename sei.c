@@ -291,7 +291,7 @@ static Atom getatomprop(Client *c, Atom prop);
 static Picture geticonprop(Window w, unsigned int *icw, unsigned int *ich);
 static int getrootptr(int *x, int *y);
 static long getstate(Window w);
-static unsigned int getsystraywidth();
+static unsigned int getsystraywidth(void);
 static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
 static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
@@ -336,7 +336,7 @@ static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void sigchld(int unused);
 #ifndef __OpenBSD__
-static int getdwmblockspid();
+static int getdwmblockspid(void);
 static void sigdwmblocks(const Arg *arg);
 #endif
 static void sighup(int unused);
@@ -1342,7 +1342,7 @@ Atom getatomprop(Client *c, Atom prop) {
 }
 
 #ifndef __OpenBSD__
-int getdwmblockspid() {
+int getdwmblockspid(void) {
   char buf[16];
   FILE *fp = popen("pidof -s dwmblocks", "r");
   fgets(buf, sizeof(buf), fp);
@@ -1563,7 +1563,7 @@ void keypress(XEvent *e) {
       keys[i].func(&(keys[i].arg));
 }
 
-unsigned int getsystraywidth() {
+unsigned int getsystraywidth(void) {
   unsigned int w = 0;
   Client *i;
   if (showsystray)
@@ -2676,7 +2676,7 @@ void unmapnotify(XEvent *e) {
 }
 
 void updatebars(void) {
-  unsigned int w;
+  // unsigned int w;
   Monitor *m;
   XSetWindowAttributes wa = {.override_redirect = True,
                              .background_pixmap = ParentRelative,
@@ -2685,9 +2685,9 @@ void updatebars(void) {
   for (m = mons; m; m = m->next) {
     if (m->barwin)
       continue;
-    w = m->ww;
-    if (showsystray && m == systraytomon(m))
-      w -= getsystraywidth();
+    // w = m->ww;
+    // if (showsystray && m == systraytomon(m))
+    //   w -= getsystraywidth();
     m->barwin = XCreateWindow(
         dpy, root, m->wx + sp, m->by + vp, m->ww - 2 * sp, bh, 0,
         DefaultDepth(dpy, screen), CopyFromParent, DefaultVisual(dpy, screen),
@@ -2711,7 +2711,7 @@ void updatebarpos(Monitor *m) {
     m->by = -bh - vp;
 }
 
-void updateclientlist() {
+void updateclientlist(void) {
   Client *c;
   Monitor *m;
 
@@ -3403,9 +3403,9 @@ void removesystrayicon(Client *i) {
 }
 
 void resizebarwin(Monitor *m) {
-  unsigned int w = m->ww;
-  if (showsystray && m == systraytomon(m) && !systrayonleft)
-    w -= getsystraywidth();
+  // unsigned int w = m->ww;
+  // if (showsystray && m == systraytomon(m) && !systrayonleft)
+  //   w -= getsystraywidth();
   XMoveResizeWindow(dpy, m->barwin, m->wx + sp, m->by + vp, m->ww - 2 * sp, bh);
 }
 
