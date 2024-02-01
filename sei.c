@@ -410,7 +410,6 @@ static int bh;     /* bar height */
 static int enableoutergaps = 1;
 static int manuallytoggledbar = 0;
 static int lrpad; /* sum of left and right padding for text */
-static int vp;    /* vertical padding for bar */
 static int sp;    /* side padding for bar */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
@@ -446,6 +445,9 @@ static xcb_connection_t *xcon;
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
+
+static int vp =
+    (topbar == 1) ? vertpad : -vertpad; /* vertical padding for bar */
 
 struct Pertag {
   unsigned int curtag, prevtag;          /* current and previous tag */
