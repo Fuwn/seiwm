@@ -4,7 +4,7 @@
 
 [![Screenshot](https://i.imgur.com/GEDBZ6N.png)](https://i.imgur.com/GEDBZ6N.png)
 
-<a href="https://anilist.co/character/188173/" target="_blank"><img src="https://i.imgur.com/MVp2ULn.png" align="right" height="500vw"></a>
+<a href="https://anilist.co/character/188173/" target="_blank"><img src="https://i.imgur.com/MVp2ULn.png" align="right" height="250vw"></a>
 
 ## Installation
 
