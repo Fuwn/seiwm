@@ -2119,7 +2119,7 @@ void sendmon(Client *c, Monitor *m) {
 
   if (followclient) {
     focus(c);
-    arrange(c->mon);
+    arrange(NULL);
 
     if (c && c->mon == selmon)
       XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w / 2, c->h / 2);
