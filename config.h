@@ -232,7 +232,7 @@ static const Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_comma,	spawn,		{.v = (const char*[]){ "mpc", "seek", "0%", NULL } } }, */
 	{ MODKEY,			XK_period,	spawn,		{.v = (const char*[]){ "spt", "pb", "--next", NULL } } },
 	{ MODKEY|ShiftMask,		XK_period,	spawn,		{.v = (const char*[]){ "spt", "pb", "--previous", NULL } } },
-	{ MODKEY, XK_c, spawn, {.v = (const char *[]){"rofi", "-modi", "\"clipboard:greenclip print\"", "-show", "clipboard", "-run-command", "'{cmd}'", NULL}}},
+	{ MODKEY, XK_c, spawn, {.v = (const char *[]){"clipcat-menu", NULL}}},
 
 	{ MODKEY,			XK_Left,	focusmon,	{.i = -1 } },
 	{ MODKEY|ShiftMask,		XK_Left,	tagmon,		{.i = -1 } },
