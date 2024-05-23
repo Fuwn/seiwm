@@ -2264,8 +2264,10 @@ togglefloating(const Arg *arg)
 void
 togglefullscr(const Arg *arg)
 {
-  if(selmon->sel)
+  if(selmon->sel) {
     setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
+    togglebar(NULL);
+  }
 }
 
 void
