@@ -98,10 +98,10 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+	{ MODKEY,                       KEY,      comboview,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,          {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      combotag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,           {.ui = 1 << TAG} },
 #define STACKKEYS(MOD,ACTION) \
 	{ MOD,	XK_j,	ACTION##stack,	{.i = INC(+1) } }, \
 	{ MOD,	XK_k,	ACTION##stack,	{.i = INC(-1) } }, \
@@ -161,8 +161,8 @@ static const Key keys[] = {
 	TAGKEYS(			XK_7,		6)
 	TAGKEYS(			XK_8,		7)
 	TAGKEYS(			XK_9,		8)
-	{ MODKEY,			XK_0,		view,		{.ui = ~0 } },
-	{ MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
+	{ MODKEY,			XK_0,		comboview,		{.ui = ~0 } },
+	{ MODKEY|ShiftMask,		XK_0,		combotag,		{.ui = ~0 } },
 	{ MODKEY,			XK_minus,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%-; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY,			XK_equal,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -44 $(pidof dwmblocks)") },
