@@ -43,6 +43,7 @@
 #endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
 #include <X11/Xlib-xcb.h>
+#include <X11/extensions/shape.h>
 #include <xcb/res.h>
 
 #include "drw.h"
@@ -69,6 +70,27 @@
 #define SPTAGMASK		(((1 << LENGTH(scratchpads))-1) << LENGTH(tags))
 #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
 #define TRUNC(X,A,B)            (MAX((A), MIN((X), (B))))
+#define XRDB_LOAD_COLOR(R, V)                                                  \
+  if (XrmGetResource(xrdb, R, NULL, &type, &value) == True) {                  \
+    if (value.addr != NULL && strnlen(value.addr, 8) == 7 &&                   \
+        value.addr[0] == '#') {                                                \
+      int i = 1;                                                               \
+      for (; i <= 6; i++) {                                                    \
+        if (value.addr[i] < 48)                                                \
+          break;                                                               \
+        if (value.addr[i] > 57 && value.addr[i] < 65)                          \
+          break;                                                               \
+        if (value.addr[i] > 70 && value.addr[i] < 97)                          \
+          break;                                                               \
+        if (value.addr[i] > 102)                                               \
+          break;                                                               \
+      }                                                                        \
+      if (i == 7) {                                                            \
+        strncpy(V, value.addr, 7);                                             \
+        V[7] = '\0';                                                           \
+      }                                                                        \
+    }                                                                          \
+  }
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
@@ -304,6 +326,9 @@ static int bh;               /* bar height */
 static int lrpad;            /* sum of left and right padding for text */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
+static int enablefullscreen = 0;
+static int enableoutergaps = 1;
+static int lrpad; /* sum of left and right padding for text */
 static void (*handler[LASTEvent]) (XEvent *) = {
 	[ButtonPress] = buttonpress,
 	[ClientMessage] = clientmessage,
@@ -1320,16 +1345,29 @@ maprequest(XEvent *e)
 void
 monocle(Monitor *m)
 {
-	unsigned int n;
-	int oh, ov, ih, iv;
-	Client *c;
-
-	getgaps(m, &oh, &ov, &ih, &iv, &n);
-
-	if (n > 0) /* override layout symbol */
-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
-	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx + ov, m->wy + oh, m->ww - 2 * c->bw - 2 * ov, m->wh - 2 * c->bw - 2 * oh, 0);
+  unsigned int i, n, h, mw, my, ty;
+  Client *c;
+  
+  for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+  if (n == 0)
+  	return;
+  
+  if (n > m->nmaster)
+  	mw = m->nmaster ? m->ww * m->mfact : 0;
+  else
+  	mw = m->ww;
+  for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+  	if (i < m->nmaster) {
+  		h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+  		resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
+  		if (my + HEIGHT(c) < m->wh)
+  			my += HEIGHT(c);
+  	} else {
+  		h = (m->wh - ty) / (n - i);
+  		resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
+  		if (ty + HEIGHT(c) < m->wh)
+  			ty += HEIGHT(c);
+  	}
 }
 
 void
