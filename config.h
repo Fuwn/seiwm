@@ -7,6 +7,7 @@
 #define BROWSER "firefox"
 
 /* appearance */
+static const char *wmname = "sei";
 static unsigned int borderpx  = 2;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
