@@ -268,6 +268,7 @@ static void maprequest(XEvent *e);
 static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
+static void nametag(const Arg *arg);
 static Client *nexttagged(Client *c);
 static Client *nexttiled(Client *c);
 static void pop(Client *c);
@@ -423,6 +424,7 @@ struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 /* function implementations */
 static int combo = 0;
+static char tags_original[][MAX_TAGLEN] = TAGS;
 
 void
 keyrelease(XEvent *e) {
@@ -1670,6 +1672,43 @@ movemouse(const Arg *arg)
 		selmon = m;
 		focus(NULL);
 	}
+}
+
+void
+nametag(const Arg *arg) {
+	char *p, name[MAX_TAGNAME_LEN];
+	FILE *f;
+	int i;
+
+	errno = 0; // popen(3p) says on failure it "may" set errno
+	if(!(f = popen("dmenu < /dev/null", "r"))) {
+		fprintf(stderr, WMNAME ": popen 'dmenu < /dev/null' failed%s%s\n", errno ? ": " : "", errno ? strerror(errno) : "");
+		return;
+	}
+	if (!(p = fgets(name, MAX_TAGNAME_LEN, f)) && (i = errno) && ferror(f))
+		fprintf(stderr, WMNAME ": fgets failed: %s\n", strerror(i));
+	if (pclose(f) < 0)
+		fprintf(stderr, WMNAME ": pclose failed: %s\n", strerror(errno));
+	if(!p)
+		return;
+	if((p = strchr(name, '\n')))
+		*p = '\0';
+
+	for(i = 0; i < LENGTH(tags); i++)
+		if(selmon->tagset[selmon->seltags] & (1 << i)) {
+		  if (append_nametag == 1) {
+        strcpy(tags[i], tags_original[i]);
+
+        if (strlen(name) != 0)
+          strcat(tags[i], " ");
+        
+        sprintf(tags[i], TAG_PREPEND, tags[i]);
+        strcat(tags[i], name);
+  		} else {
+  		  strcpy(tags[i], name);
+  		}
+		}
+	drawbars();
 }
 
 Client *
@@ -3251,7 +3290,7 @@ main(int argc, char *argv[])
 	if (argc == 2 && !strcmp("-v", argv[1]))
 		die(WMNAME "-"VERSION);
 	else if (argc != 1)
-		die("usage: dwm [-v]");
+		die("usage: " WMNAME " [-v]");
 	if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
 		fputs("warning: no locale support\n", stderr);
 	if (!(dpy = XOpenDisplay(NULL)))

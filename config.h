@@ -53,7 +53,15 @@ static Sp scratchpads[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+#define MAX_TAGNAME_LEN 14		/* excludes TAG_PREPEND */
+#define TAG_PREPEND "%s"
+#define MAX_TAGLEN 16			/* altogether */
+#define TAGS { "一", "二", "三", "四", "五", "六", "七", "八", "九" }
+static char tags[][MAX_TAGLEN] = TAGS;
+/* append_nametag:
+ *   1: append the new nametag to the original tag label from above
+ *   0: overwrite original tag label with new nametag */
+static const unsigned int append_nametag = 1;
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -243,6 +251,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_Left,	tagmon,		{.i = -1 } },
 	{ MODKEY,			XK_Right,	focusmon,	{.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_Right,	tagmon,		{.i = +1 } },
+	{MODKEY, XK_n, nametag, {0}},
 
 	{ MODKEY,			XK_Page_Up,	shiftview,	{ .i = -1 } },
 	{ MODKEY|ShiftMask,		XK_Page_Up,	shifttag,	{ .i = -1 } },
