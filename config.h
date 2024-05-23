@@ -5,7 +5,7 @@
 #define TERMINAL2 "st"
 #define TERMCLASS "kitty"
 #define TERMCLASS2 "St"
-#define BROWSER "firefox"
+#define BROWSER "vivaldi"
 #define WMNAME "sei"
 
 /* appearance */
@@ -242,7 +242,7 @@ static const Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("") }, */
 	/* { MODKEY,			XK_n,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "nvim", "-c", "VimwikiIndex", NULL } } }, */
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD(BROWSER " https://sumi.news ; pkill -RTMIN+6 dwmblocks") },
-	{ MODKEY,			XK_m,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "spt", NULL } } },
+	{ MODKEY,			XK_m,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "ncspot", NULL } } },
 	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY,			XK_comma,	spawn,		{.v = (const char*[]){ "spt", "pb", "--pp", NULL } } },
 	/* { MODKEY|ShiftMask,		XK_comma,	spawn,		{.v = (const char*[]){ "mpc", "seek", "0%", NULL } } }, */
