@@ -24,6 +24,7 @@ static int swallowfloating    = 0;        /* 1 means swallow floating windows by
 static int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
+static const int user_bh            = 2;        /* 2 is the default spacing around the bar's font */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 30;       /* horizontal padding of bar */
 static char *fonts[]          = { "Sarasa Term SC Nerd:size=11", "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true"  };
