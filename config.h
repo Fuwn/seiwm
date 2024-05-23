@@ -158,7 +158,7 @@ static const Key keys[] = {
 	STACKKEYS(MODKEY,                          focus)
 	STACKKEYS(MODKEY|ShiftMask,                push)
 	/* { MODKEY|ShiftMask,		XK_Escape,	spawn,	SHCMD("") }, */
-	{ MODKEY,			XK_grave,	spawn,	{.v = (const char*[]){ "rofi", "-modi", "\"emoji:rofimoji\"", "-show", "emoji", NULL } } },
+	{ MODKEY,			XK_grave,	spawn,	{.v = (const char*[]){ "rofi", "-modi", "emoji", "-show", "emoji", NULL } } },
 	/* { MODKEY|ShiftMask,		XK_grave,	togglescratch,	SHCMD("") }, */
 	TAGKEYS(			XK_1,		0)
 	TAGKEYS(			XK_2,		1)
