@@ -1,9 +1,11 @@
-.gitignore
-*.orig
-*.rej
-larbs.pdf
-patches
-util.o
-dwm
-dwm.o
-drw.o
+# Build Artifacts
+*.o
+*.d
+sei
+
+# Ninja
+.ninja_*
+compile_commands.json
+
+# Zig
+.cache

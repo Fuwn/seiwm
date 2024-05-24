@@ -1,0 +1,62 @@
+ninja_required_version = 1.10
+builddir = ./build
+
+include config.ninja
+
+rule install
+  command = mkdir -p ${DESTDIR}${PREFIX}/bin             && $
+	          install -Dm755 ./sei ${DESTDIR}${PREFIX}/bin && $
+            mkdir -p ${DESTDIR}${PREFIX}/share/sei       && $
+            cp -f sei.desktop /usr/share/xsessions/sei.desktop
+
+rule uninstall
+  command = rm -f ${DESTDIR}${PREFIX}/bin/sei $
+            /usr/share/xsessions/sei.desktop
+
+rule options
+  command = echo "CFLAGS   = ${CFLAGS}"  && $
+            echo "LDFLAGS  = ${LDFLAGS}" && $
+            echo "CC       = ${CC}"
+
+rule clean
+  command = ninja $FILE_ARG -t clean $TARGETS
+
+rule compile
+  command = ${CC} -c ${in} -o ${out} ${CFLAGS} -MMD -MF ${out}.d
+  depfile = ${out}.d
+
+rule link
+  command = ${CC} ${in} -o ${out} ${LDFLAGS}
+
+rule clang_format
+  command = clang-format -i -style=LLVM ./*.{c,h}
+
+rule clang_tidy
+  command = ninja -t compdb > compile_commands.json && clang-tidy ./*.{c,h}
+
+build format: clang_format
+
+build tidy: clang_tidy
+
+build clean: clean
+
+build all: phony options sei
+
+build options: options
+  pool = console
+
+build ${builddir}/drw.o:  compile drw.c
+build ${builddir}/dwm.o:  compile dwm.c
+build ${builddir}/util.o: compile util.c
+
+build sei: link ${builddir}/drw.o ${builddir}/dwm.o ${builddir}/util.o
+
+build install: install sei
+  pool = console
+  restat = 1
+
+build uninstall: uninstall
+  pool = console
+  restat = 1
+
+default sei
