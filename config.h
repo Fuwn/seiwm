@@ -9,6 +9,11 @@
 #define WMNAME "sei"
 
 /* appearance */
+/* followclient:
+ *   1: if sending a client to a new tag with no other clients, the view will
+ *      follow the client
+ *   0: default behaviour */
+static const int followclient = 1;
 static unsigned int borderpx  = 2;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */

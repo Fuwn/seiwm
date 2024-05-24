@@ -440,6 +440,8 @@ keyrelease(XEvent *e) {
 
 void
 combotag(const Arg *arg) {
+  Client *target = selmon->sel;
+  
 	if(selmon->sel && arg->ui & TAGMASK) {
 		if (combo) {
 			selmon->sel->tags |= arg->ui & TAGMASK;
@@ -449,6 +451,16 @@ combotag(const Arg *arg) {
 		}
 		focus(NULL);
 		arrange(selmon);
+		
+		if (followclient) {
+      Client *c;
+      int i = 0;
+
+      for (c = target->mon->clients; c && !ISVISIBLE(c); c = c->next)
+        if (c->tags == target->tags) i += 1;
+
+      if (i <= 1) view(arg);
+    }
 	}
 }
 
