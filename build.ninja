@@ -28,13 +28,8 @@ rule compile
 rule link
   command = ${CC} ${in} -o ${out} ${LDFLAGS}
 
-rule clang_format
-  command = clang-format -i -style=LLVM ./*.{c,h}
-
 rule clang_tidy
   command = ninja -t compdb > compile_commands.json && clang-tidy -checks="${CLANG_TIDY_CHECKS}" ./*.{c,h}
-
-build format: clang_format
 
 build tidy: clang_tidy
 
