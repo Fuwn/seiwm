@@ -1,0 +1,17 @@
+name: Check
+on: [push, pull_request]
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update Package Lists
+        run: sudo apt-get update
+      - name: Install Dependencies
+        run: |
+          sudo apt-get install -y build-essential libimlib2-dev libxft-dev \
+          libfribidi-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev \
+          ninja-build
+      - name: Test Compilation
+        run: ninja
