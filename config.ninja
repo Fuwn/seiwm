@@ -45,3 +45,6 @@ LDFLAGS  = ${LIBS}
 
 # Compiler
 CC = $${CC:-cc}
+
+# clang-tidy
+CLANG_TIDY_CHECKS='-*,bugprone-*,clang-analyzer-*,concurrency-*,cppcoreguildelines-*,llvm-*,misc-*,modernize-*,performance-*,portability-*,readability-*'
