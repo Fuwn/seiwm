@@ -98,3 +98,4 @@ sudo ninja install
   centre the focused client's title
 - [cursor](https://dwm.suckless.org/patches/cursorwarp/): Warps the mouse cursor
   to the center of the target window when changing focus
+- [clientindicators](https://dwm.suckless.org/patches/clientindicators/): Dot indicator of open clients in non-vacent tags

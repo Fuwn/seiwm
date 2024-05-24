@@ -30,6 +30,7 @@ static int swallowfloating    = 0;        /* 1 means swallow floating windows by
 static int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int enableclientindicators = 1;
 static int centretitle = 0;
 #define ICONSIZE 16   /* icon size */
 #define ICONSPACING 5 /* space between icon and title */
