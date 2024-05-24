@@ -19,7 +19,7 @@ rule options
             echo "CC       = ${CC}"
 
 rule clean
-  command = ninja $FILE_ARG -t clean $TARGETS
+  command = rm -rf ${builddir} sei
 
 rule compile
   command = ${CC} -c ${in} -o ${out} ${CFLAGS} -MMD -MF ${out}.d
