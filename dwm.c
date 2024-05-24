@@ -277,7 +277,7 @@ static void movemouse(const Arg *arg);
 static void nametag(const Arg *arg);
 static Client *nexttagged(Client *c);
 static Client *nexttiled(Client *c);
-static void pop(Client *c);
+/* static void pop(Client *c); */
 static void propertynotify(XEvent *e);
 static void pushstack(const Arg *arg);
 static void quit(const Arg *arg);
@@ -380,8 +380,6 @@ static int lrpad;            /* sum of left and right padding for text */
 static int sp;               /* side padding for bar */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
-static int enablefullscreen = 0;
-static int enableoutergaps = 1;
 static int manuallytoggledbar = 0;
 static int lrpad; /* sum of left and right padding for text */
 static void (*handler[LASTEvent]) (XEvent *) = {
@@ -1841,14 +1839,14 @@ nexttiled(Client *c)
 	return c;
 }
 
-void
+/* void
 pop(Client *c)
 {
 	detach(c);
 	attach(c);
 	focus(c);
 	arrange(c->mon);
-}
+} */
 
 void
 pushstack(const Arg *arg) {
