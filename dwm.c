@@ -1950,9 +1950,9 @@ resize(Client *c, int x, int y, int w, int h, int interact)
 
 void
 resizebarwin(Monitor *m) {
-	unsigned int w = m->ww;
-	if (showsystray && m == systraytomon(m) && !systrayonleft)
-		w -= getsystraywidth();
+	// unsigned int w = m->ww;
+	// if (showsystray && m == systraytomon(m) && !systrayonleft)
+	// 	w -= getsystraywidth();
 	XMoveResizeWindow(dpy, m->barwin, m->wx + sp, m->by + vp, m->ww - 2 * sp, bh);
 }
 
@@ -2727,7 +2727,7 @@ unmapnotify(XEvent *e)
 void
 updatebars(void)
 {
-	unsigned int w;
+	/* unsigned int w; */
 	Monitor *m;
 	XSetWindowAttributes wa = {
 		.override_redirect = True,
@@ -2738,9 +2738,9 @@ updatebars(void)
 	for (m = mons; m; m = m->next) {
 		if (m->barwin)
 			continue;
-		w = m->ww;
+		/* w = m->ww;
 		if (showsystray && m == systraytomon(m))
-			w -= getsystraywidth();
+			w -= getsystraywidth(); */
 		m->barwin = XCreateWindow(dpy, root, m->wx + sp, m->by + vp, m->ww - 2 * sp, bh, 0, DefaultDepth(dpy, screen),
 				CopyFromParent, DefaultVisual(dpy, screen),
 				CWOverrideRedirect|CWBackPixmap|CWEventMask, &wa);
