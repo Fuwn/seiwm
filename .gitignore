@@ -9,3 +9,8 @@ compile_commands.json
 
 # Zig
 .cache
+
+# Patches
+*.orig
+*.rej
+*.diff
